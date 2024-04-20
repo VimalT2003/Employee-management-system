@@ -1,0 +1,25 @@
+package com.example.ems.service;
+
+import org.springframework.stereotype.Service;
+
+
+import com.example.ems.entity.Employee;
+import com.example.ems.repository.EmployeeRepository;
+
+import lombok.RequiredArgsConstructor;
+
+@Service
+@RequiredArgsConstructor
+public class EmployeeService {
+  
+    private final EmployeeRepository employeeRepository;
+    
+    // Manually defined constructor to initialize final fields
+    public EmployeeService(EmployeeRepository employeeRepository) {
+        this.employeeRepository = employeeRepository;
+    }
+    
+    public Employee postEmployee(Employee employee) {
+        return employeeRepository.save(employee);
+    }
+}

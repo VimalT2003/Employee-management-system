@@ -1,0 +1,35 @@
+package com.example.ToDoList.service;
+
+import com.example.ToDoList.model.User;
+import com.example.ToDoList.repository.UserRepository;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.stereotype.Service;
+
+import java.sql.Date;
+
+@Service
+public class UserServiceImpl implements UserService {
+
+    @Autowired
+    private UserRepository userRepository;
+
+    @Autowired
+    private BCryptPasswordEncoder passwordEncoder;
+
+    @Override
+    public User register(User user) {
+        user.setPassword(passwordEncoder.encode(user.getPassword()));
+        user.setCreatedDate(new Date(0));
+        // Assuming createdBy is set from the request or session
+        user.setCreatedBy("system"); // For example, can be from logged in user
+        user.setUpdatedBy("system");
+        user.setUpdatedDate(new Date(0));
+        return userRepository.save(user);
+    }
+
+    @Override
+    public User findByUsername(String username) {
+        return userRepository.findByUsername(username);
+    }
+}

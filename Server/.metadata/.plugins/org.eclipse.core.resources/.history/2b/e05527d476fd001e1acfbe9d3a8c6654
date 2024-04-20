@@ -1,0 +1,35 @@
+package com.example.ems.service;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+
+import com.example.ems.entity.Employee;
+import com.example.ems.repository.EmployeeRepository;
+
+import jakarta.transaction.Transactional;
+import lombok.RequiredArgsConstructor;
+
+@Service
+@Transactional // Enable transaction management
+public class EmployeeService {
+  
+    private final EmployeeRepository employeeRepository;
+    
+    @Autowired // Autowire the repository
+    public EmployeeService(EmployeeRepository employeeRepository) {
+        this.employeeRepository = employeeRepository;
+    }
+    
+    public Employee postEmployee(Employee employee) {
+        // Ensure proper error handling
+        try {
+            return employeeRepository.save(employee);
+        } catch (Exception e) {
+            // Log the exception
+            e.printStackTrace();
+            // You may throw custom exceptions or handle the error accordingly
+            return null;
+        }
+    }
+}

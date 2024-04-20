@@ -1,0 +1,5 @@
+package com.example.ToDoList.controller.config;
+
+public class SecurityConfig {
+
+}
